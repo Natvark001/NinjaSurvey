@@ -1,0 +1,45 @@
+{%extends 'admin/adminlayout.html'%}
+{%block adminarea%}
+<div class='row'>
+    <div class='col-md'>
+<table class='table table-striped'>
+    <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Survey Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Date Created</th>
+            <th>Created By:</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for survey in surveys%}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{survey.survey_name}}</td>
+            <td>{{survey.survcat.category_name}}</td>
+            <td><a href="{{url_for('edit_status',id=survey.survey_id)}}" id='{{survey.survey_id}}' class='stat'>{%if survey.survey_status=='0'%}
+                <span  class='btn btn-danger'>Closed</span>
+                {%else%}
+                <span class='btn btn-secondary'>Opened</span>
+                {%endif%}
+            </a>
+            </td>
+            <td>{{survey.date_opened}}</td>
+            <td>{{survey.survdeets.user_email}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+</div>
+</div>
+{%endblock%}
+{%block customjs%}
+<script typr='text/javascript'>
+$(document).ready(function(){
+    
+  
+})
+</script>
+{%endblock%}

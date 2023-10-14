@@ -1,0 +1,34 @@
+{%extends 'admin/adminlayout.html'%}
+{%block adminarea%}
+{%if cat%}
+<div class='row'>
+    <div class='col-md'>
+        <table class='table table-striped'>
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Category Name</th>
+                    <th>Category Picture</th>
+                    <th>Date Created</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for category in cat%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{category.category_name|title}}</td>
+                    <td><img src='/static/template_uploads/{{category.category_image}}' style='max-height:100px'></td>
+                    <td>{{category.date_added}}</td>
+                    <td><a href="{{url_for('delete_category',id=category.category_id)}}" class='alert-link text-danger' onclick="{return confirm('Do you want to delete this Template Category?')}">Delete</a></td>
+                    
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%else%}
+<div class='alert alert-info'>No Category Available</div>
+{%endif%}
+{%endblock%}

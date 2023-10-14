@@ -1,0 +1,47 @@
+{%extends 'users/user_layout.html'%}
+{%block content%}
+<div class='row justify-content-center'>
+    <div class='col-md-8 animate__animated animate__backInDown'>
+        <input type='hidden' id='csrf_token' name='csrf_token' value='{{csrf_token()}}'>
+        <div id='ajaxresponse'></div>
+        <div><h4>Survey Title:{{survey.survey_name}}</h4></div>
+        <div class='mb-2'>
+        <label>Question</label>
+        <input type='text' id='question' name='question' class='form-control'>
+        </div>
+        <div class='options'>
+            <label>Option 1</label>
+            <input type='text' id='option1' name='option1' class='form-control mb-2'>
+            <label>Option 2</label>
+            <input type='text' id='option2' name='option2' class='form-control mb-2'>
+            <label>Option 3</label>
+            <input type='text' id='option3' name='option3' class='form-control mb-2'>
+        </div>
+        <div>
+        <button class='btn btn-dark noround' id='btnquestion' type='button'>Add</button>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
+{%block customjs%}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $('#btnquestion').click(function(){
+       var que=$('#question').val()
+       var op1=$('#option1').val()
+       var op2=$('#option2').val()
+       var op3=$('#option3').val()
+       csrf=$('#csrf_token').val()
+       data={'question':que,'option1':op1,'option2':op2,'option3':op3,'csrf_token':csrf}
+       $('#ajaxresponse').load('/ninjasurvey/createquestions/{{survey.survey_id}}/',data,function(){
+        $(this).addClass('alert alert-success')
+        $('#question').val('')
+        $('#option1').val('')
+        $('#option2').val('')
+        $('#option3').val('')
+       })
+    })
+})
+</script>
+{%endblock%}

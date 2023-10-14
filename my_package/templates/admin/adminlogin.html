@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keyword" content="ninjasurvey">
+    <meta name="description" content="">
+    <meta name="author" content="Oshoba Nathaniel">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="/static/fontawesome/css/all.css" type="text/css">
+    <link rel="stylesheet" href="/static/script/animation.css">
+    <link rel="stylesheet" href="/static/main.css" type="text/css">
+    <title>Ninja Survey Admin {{title}}</title>
+</head>
+<body  style='background-color:#e5fcf5'>
+    <div class='container '>
+        <div class='row justify-content-center'>
+            <div class='col-md-6 mt-5'>
+                <form action='' method='post'>
+                    <h1 class="text-center"><img src='/static/images/ninja.png' width='50px'>Ninja Survey</h1>
+                    <input type='hidden' name='csrf_token' value='{{csrf_token()}}'>
+                    {% set m=get_flashed_messages(with_categories=True)%}
+                    {%for i,j in m%}
+                    {{j}}
+                    {%endfor%}
+                    <div class='mb-3'>
+                    {{reg.adminname.label}}
+                    {{reg.adminname(class_='form-control',placeholder='Admin Username')}}
+                    </div>
+
+                    <div class='mb-3'>
+                    {{reg.pwd.label}}
+                    {{reg.pwd(class_='form-control',placeholder='Admin password')}}
+                    </div>
+
+                    <div>
+                    
+                    {{reg.btnlogin(class_='btn btn-success col-12')}}
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="/static/script/jquerylib.js" type="text/javascript"></script>
+    <script src="/static/index.js"></script>
+</body>
+</html>

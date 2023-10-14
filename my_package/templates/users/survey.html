@@ -1,0 +1,25 @@
+{% extends 'users/index.html'%}
+        {% block content%}
+        
+        <!--second row of Template starts here-->
+        {%if template%}
+        <div class="row justify-content-center  " id='templatesurvey'>
+            <div class="col-md-10">
+                <div class="row gap-1 justify-content-center ">
+                    {%for surv in template%}
+                    <div class="col-md-3  template2"> 
+                       <a href="{{url_for('create_survey')}}"> <img src='/static/templateicons/{{surv.category_icon}}' style='width:40px;height:40px' class='mt-3'>
+                        <h4 class="mb-5">{{surv.category_name|title}}</h4></a>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+
+        </div>
+        {%else%}
+        <div class='alert alert-info'>There are not available template to select from</div>
+        {%endif%}
+        <!--second row of Template ends here-->
+
+        {% endblock %}
+

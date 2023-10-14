@@ -1,0 +1,57 @@
+{%extends 'users/user_layout.html'%}
+{%block content%}
+<div class='row'>
+    <div class='col-md-11'>
+        <div class='row gap-1 justify-content-center'>
+            <div class='col'>
+                <a class='btn btn-primary mt-2 mb-3 noround' href="{{url_for('new_survey')}}">Create Survey</a>
+        {%if surveys%}
+        <h2>Surveys You Created:</h2>
+           <table class='table table-striped'>
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Survey Title</th>
+                        <th>Category</th>
+                        <th>Question</th>
+                        <th>Action</th>
+                        <th>Survey Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for survey in surveys%}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{survey.survey_name}}</td>
+                        <td>{{survey.survcat.category_name}}</td>
+                        <td>{%if survey.survquest|count > 0%}<a href="{{url_for('all_question',id=survey.survey_id)}}">{{survey.survquest|count }} Question(s)</a>{%else%}No Question Available {%endif%}</td>
+                        <td><a class='btn btn-warning' href="{{url_for('add_questions', id=survey.survey_id)}}" id='addlink'>Add Question</a> <a href="{{url_for('edit_survey',id=survey.survey_id)}}" class='alert-link'>Edit</a> <a href="{{url_for('delete_survey',id=survey.survey_id)}}" class='alert-link' onclick="{return confirm('Do you want to delete this survey?')}">Delete</a></td>
+                        <td><a href="{{url_for('survey_status',id=survey.survey_id)}}" id='{{survey.survey_id}}' class='btn btn-info'>{%if survey.survey_status=='0'%}
+                            <span  class='text-danger'><b>Closed</b></span>
+                            {%else%}
+                            <span class='text-dark'><b>Opened</b></span>
+                            {%endif%}
+                        </a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+           </table>
+        {%else%}
+        <div class='alert alert-info mt-3'>No survey has been created</div>
+        {%endif%}
+        </div>
+            
+        </div>
+
+
+    </div>
+</div>
+{%endblock%}
+{%block customjs%}
+<script type='text/javascript'>
+$(document).ready(function(){
+  
+})
+</script>
+{%endblock%}

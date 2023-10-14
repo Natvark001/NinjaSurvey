@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keyword" content="ninjasurvey">
+    <meta name="description" content="">
+    <meta name="author" content="Oshoba Nathaniel">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="/static/fontawesome/css/all.css" type="text/css">
+    <link rel="stylesheet" href="/static/script/animation.css">
+    <link rel="stylesheet" href="/static/main.css" type="text/css">
+    <title>Ninja Survey {{title}}</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <!--Nav area starts here-->
+        <div class="row top">
+            <div class="col-md">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                    <a class="navbar-brand" href="{{url_for('home_page')}}"> <img src='/static/images/ninja.png' width='40px'>Ninja Survey</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link mx-5"  href="{{url_for('home_page')}}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-5" href="#" data-bs-toggle="modal" data-bs-target="#contactus">Contact Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-5 " href="{{url_for('temp_survey')}}">Templates</a>
+                        </li>
+                        </ul>
+                        <a href="{{url_for('login_page')}}" class="nav-login"><i class="fa-solid fa-right-to-bracket fa-lg"></i>LOG IN</a>
+                    </div>
+                    </div>
+                </nav>
+              </div>
+        </div>
+        <!--Nav area ends here-->
+    <div id='content'>
+        {% block content %}
+        <!--conduct survey and form area starts here-->
+        <div class="row justify-content-center" id="conductform">
+            <div class="col-md-10">
+                <div class="row text-start">
+                    <div class="col-md-8 mt-3">
+                        <h3>You can reach out to many of your target audience and get feedbacks required just by using the survey template that suits your need</h3>
+                        <a href="{{url_for('create_survey')}}" class='btn btn-dark'>Create Survey</a><br>&nbsp
+                        {% set m=get_flashed_messages(with_categories=True)%}
+                        {% if m%}
+                        {% for cat,msg in m %}
+                        {%if cat =='success'%}
+                        <div class='alert alert-success'>{{msg}}</div>
+                        {%else%}
+                        <div class='alert alert-danger'>{{msg}}</div>
+                        {%endif%}
+                        {%endfor%}
+                        {%endif%}
+
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        {%block loginform%}
+                        <form action="" method="post">
+                            {#<input type='hidden' name='csrf_token' value='{{csrf_token()}}'>#}
+                            <h3>Sign Up Here</h3>
+                            <div class='mb-2'>
+                                {{create.email.label}}
+                                {% if create.email.errors %}
+                                {% for i in create.email.errors %}
+                                <span style='color:red'>{{i}}</span>
+                                {% endfor %}
+                                {% endif %}
+                                {{create.email(class_='form-control')}}
+
+                            </div>
+                            <div class='mb-2'>
+                                {{create.pwd.label}}
+                                {% if create.pwd.errors %}
+                                {% for j in create.pwd.errors %}
+                                <span style='color:red'>{{j}}</span>
+                                {% endfor %}
+                                {% endif %}
+                                {{create.pwd(class_='form-control')}}
+
+                            </div>
+                            <div class='mb-2'>
+                                {{create.confpwd.label}}
+                                {% if create.confpwd.errors %}
+                                {% for k in create.confpwd.errors %}
+                                <span style='color:red'>{{k}}</span>
+                                {% endfor %}
+                                {% endif %}
+                                {{create.confpwd(class_='form-control')}}
+
+                            </div>
+                            <div>
+                                {{create.agree(class_='form-check-input mb-2')}}
+                                <span>Agree to <a href="#" data-bs-toggle="modal" data-bs-target="#termsconditions">Terms&Conditions<a><span>
+                            </div>
+                            <div class='mb-2'>
+                                {{ create.csrf_token }}
+                                {{create.btncreate(class_='btn btn-success col-12',disabled=disabled)}}
+                            </div>
+                            <hr>
+                        </form>
+                        
+                        {%endblock%}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!--conduct survey and form area ends here-->
+        <!--how survey area starts here-->
+        <div class="row justify-content-center">
+            <div class="col-md mt-2">
+                <h3 class="text-center">How your survey is conducted</h3>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img src="/static/images/conductsurvey.jpg" alt="photo of survey created" class="img-fluid" >
+                            <p>Create Survey by choosing from the available templates.</p>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="/static/images/sendsurvey.jpg" alt="photo of send survey" class="img-fluid">
+                            <p>Send Survey created to your target audience via the link created from survey</p>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="/static/images/feeback.jpg" alt="photo of feeback" class="img-fluid">
+                            <p>Responses are expected from target audience. Know how your audience responded</p>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="/static/images/analysesurvey.jpg" alt="photo of response analysed" class="img-fluid">
+                            <p>Responses will be analysed for easy presentation and documentation</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!--how survey area ends here-->
+        <!--learn area starts here-->
+        <div class="row text-center learn">
+           <div class="col-md">
+            <h5>With lots of available survey to pick from, there are different strategic ways of picking a survey question that will enhance swift response from your target audience</h5>
+            <a href="{{url_for('our_page')}}" class='btn btn-secondary mb-3'>Learn More</a>
+           </div>
+        </div>
+        <!--learn area ends here-->
+        <!--different survey area starts here-->
+        <div class="row justify-content-center bg-dark">
+           <h3 class='text-light'>Sample Survey Types</h3>
+           {%for category in samplecategory%}
+            <div class="col-md-2 bg-dark text-light">
+                <h4>{{category.category_name|title}} </h4>
+                <a href="{{url_for('temp_survey')}}"><img src="/static/template_uploads/{{category.category_image}}" alt="" class="img-fluid " style='max-height:150px'></a>
+            </div>
+            {%endfor%}
+            
+        </div>
+        <!--different survey area ends here-->
+        {% endblock %}
+    </div>
+        <!--footer area starts here-->
+        <div class="row text-light"id='foot'>
+            <hr style="color:white" class='mt-3'>
+           <div class="col-md-4">
+                <ul>
+                    <li><a href="{{url_for('our_page')}}">About NinjaSurvey</a></li>
+                    <li><a href="{{url_for('temp_survey')}}">Templates</a></li>
+                    <li><a href="{{url_for('our_page')}}">Privacy</a></li>
+                    <li><a href="{{url_for('our_page')}}">FAQs</a></li>
+                </ul>
+           </div>
+           <div class="col-md-4">
+            <p class="text-center align-baseline">Designed by Nathaniel &copy 2023</p>
+           </div>
+           <div class="col-md-4 text-end">
+            
+            <a href=''><img src='/static/images/twitter.png' width='20px'></a>&nbsp
+            <a href=''><img src='/static/images/whatsapp.png' width='20px'></a>&nbsp
+            <a href=''><img src='/static/images/instagram.png' width='20px'></a><br>
+            <a href='#top' class='align-text-bottom alert-link'>Back to Top</a>
+
+
+           </div> 
+
+        </div>
+        <!--footer area ends here-->
+        <!--Modal for contact us-->
+        <div class="modal fade" id="contactus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">A feedback will be sent from us</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action='' method='post'>
+                   <div class='mb-2'>
+                        <label for='modalemail'>Email</label>
+                        <input type='email' name='modlemail' id='modalemail' class='form-control'>
+                    </div>
+                    <div class='mb-2'>
+                        <label for='modaltext'>Message</label>
+                        <textarea name='modaltext' id='modaltext' class='form-control'></textarea>
+                    </div>
+
+                  </form>
+                </div>
+                <div class="modal-footer">
+                     <button type="button" class="btn btn-primary" id='btnfeedback'>Send</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Modal-->
+          <!--Modal for term&conditions-->
+        <div class="modal fade" id="termsconditions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Term & Conditions</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>To use Ninja Survey Application you must understand that we keep strict rules that help us to keep the usage of the application and our users in check</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Modal-->
+
+    </div>
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="/static/script/jquerylib.js" type="text/javascript"></script>
+    <script src="/static/index.js"></script>
+    <script type='text/javascript'>
+        $(document).ready(function(){
+            $('#agree').change(function(){
+                if($('#agree').prop('checked')){
+                    $('#btncreate').removeAttr('disabled')
+                }
+                else{$('#btncreate').attr('disabled','disabled')}
+            })
+            
+        })
+    </script>
+</body>
+</html>

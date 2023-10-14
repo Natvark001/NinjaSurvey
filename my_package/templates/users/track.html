@@ -1,0 +1,24 @@
+{%extends 'users/user_layout.html'%}
+{%block content%}
+{%if survey%}
+<div class='row'>
+    <div class='col-md mt-3'>
+{%for s in survey%}
+<h4>{{s.survey_name|upper}}</h4>
+<div><p>
+    {%if s.surveyrsp|count > 0 %}
+        {%if s.surveyrsp|count > 1 %}
+        {{s.surveyrsp|count}} people answered this survey <a href="{{url_for('track_answer',id=s.survey_id)}}" class='alert-link'>see answers</a>
+        {%else%}
+        {{s.surveyrsp|count}} person answered this survey <a href="{{url_for('track_answer',id=s.survey_id)}}" class='alert-link'>see answer</a>
+        {%endif%}
+    {%else%}
+    Survey is yet to be answered
+    {%endif%}</p></div>
+{%endfor%}
+    </div>
+</div>
+{%else%}
+<div class='alert alert-info mt-3'>No available survey</div>
+{%endif%}
+{%endblock%}

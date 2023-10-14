@@ -1,0 +1,29 @@
+{%extends 'admin/adminlayout.html'%}
+{%block adminarea%}
+<div class='row'>
+<div class='col-md-6 mt-5'>
+    <form action='' method='post' enctype='multipart/form-data'>
+        <input type='hidden' name='csrf_token' value='{{csrf_token()}}'>
+        <div class='mb-3'>
+            <label>Category Name</label>
+            <input type='text' name='name' id='name' class='form-control' required>
+        </div>
+
+        <div class='mb-3'>
+            <label>Category Cover</label>
+            <input type='file' name='picture' id='picture' class='form-control' required>
+        </div>
+
+        <div class='mb-3'>
+            <label>Category icon</label>
+            <input type='file' name='icon' id='icon' class='form-control' required>
+        </div>
+
+        <div class='mb-3'>
+            <button class='btn btn-info'>Add Category</button>
+        </div>
+
+    </form>
+</div>
+</div>
+{%endblock%}

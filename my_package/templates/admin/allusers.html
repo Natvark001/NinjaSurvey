@@ -1,0 +1,34 @@
+{%extends 'admin/adminlayout.html'%}
+{%block adminarea%}
+<div class='row'>
+<div class='col-md'>
+    <table class='table table-striped'>
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Email</th>
+                <th>Date Registered</th>
+                <th>User Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for user in users%}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{user.user_email}}</td>
+                <td>{{user.user_registration_date}}</td>
+                <td><a href="{{url_for('restrict',id=user.user_id)}}" class='alert-link'id='stat'>{%if user.user_status=='1'%}<span class='text-success'>Not Restricted</span>{%else%}<span class='text-danger'>Restricted</span>{%endif%}</a></td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+</div>
+{%endblock%}
+{%block customjs%}
+<script type='text/javascript'>
+$(document).ready(function(){
+
+})
+</script>
+{%endblock%}

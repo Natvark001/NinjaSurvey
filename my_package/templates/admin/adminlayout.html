@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keyword" content="ninjasurvey">
+    <meta name="description" content="">
+    <meta name="author" content="Oshoba Nathaniel">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="/static/fontawesome/css/all.css" type="text/css">
+    <link rel="stylesheet" href="/static/script/animation.css">
+    <link rel="stylesheet" href="/static/main.css" type="text/css">
+    <title>Ninja Survey Admin {{title}}</title>
+    <style type='text/css'>
+        div{
+            
+        }
+        .admincontent{
+          min-height:500px;
+        }
+        .adminheader{
+          background-color:#e5fcf5;
+        }
+    </style>
+</head>
+<body>
+    <div class='container-fluid'>
+      <!--This is the part where the nav bar and header starts-->
+        <div class='row'>
+            <div class='col-md'>
+                <nav class="navbar adminheader sticky-top ">
+                    <div class="container-fluid">
+                      <h1><a class="navbar-brand" href="#"><img src='/static/images/ninja.png' width='40px'>Ninja Survey Admin Center</a></h1>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                          {%if session['admin']%}
+                          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Admin {{session['admin']}}</h5>
+                          {%else%}
+                          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Admin</h5>
+                          {%endif%}
+                          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                              <a class="nav-link active" href="{{url_for('admin_dashboard')}}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{url_for('allusers')}}">All Users</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{url_for('see_survey')}}">All Surveys</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Category
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{url_for('all_category')}}">All Category</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('add_category')}}">Add Category</a></li>
+                              </ul>
+                            </li>
+                          </ul>
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </nav>
+            </div>
+        </div>
+        {% set m=get_flashed_messages(with_categories=True)%}
+            {% if m%}
+            {% for cat,msg in m %}
+            {%if cat =='success'%}
+            <div class='alert alert-success'>{{msg}}</div>
+            {%else%}
+            <div class='alert alert-danger'>{{msg}}</div>
+            {%endif%}
+            {%endfor%}
+            {%endif%}
+        <!--The header and nav bar session ends here-->
+        {%block adminarea%}
+        
+        {%endblock%}
+        
+
+        <div class='row'>
+          <hr>
+            <div class='col-md-4 text-center'>
+                <a href=''>Terms & Condition</a>
+            </div>
+            <div class='col-md-4 text-center'>
+              <p>&copy copyright NinjaSurvey-2023</p>
+          </div>
+            <div class='col-md-4 text-end'>
+              <a href='{{url_for("admin_logout")}}'>Logout</a>
+          </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+    <script src="/static/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="/static/script/jquerylib.js" type="text/javascript"></script>
+    <script src="/static/index.js"></script>
+</body>
+</html>

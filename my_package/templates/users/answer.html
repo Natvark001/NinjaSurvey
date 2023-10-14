@@ -1,0 +1,44 @@
+{%extends 'users/user_layout.html'%}
+{%block content%}
+<div class='row'>
+    <div class='col-md'>
+<div id='rspajax'></div>
+<form action='' method='post' id='surveyform'>
+<h3>Survey Title:{{suv.survey_name|upper}}</h3>
+<input type='hidden' name='csrf_token' value='{{csrf_token()}}'>
+{%for q in all%}
+<div class='mb-2'>
+{{loop.index}}. {{q.question_text}}?<br>
+{%for option in q.questopt%}
+<input type='radio' name='opt_{{q.question_id}}' data-id='{{q.question_id}}' class='opt' value='{{option.option_id}}' class='form-check-input'> {{option.option_text}}<br>
+{%endfor%}
+</div>
+{%endfor%}
+
+<button class='btn btn-secondary noround mt-2' id='btnsubmit'>Submit</button>
+</form>
+</div>
+</div>
+
+{%endblock%}
+{%block customjs%}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $('.opt').click(function(){
+        questionid=$(this).attr('data-id')
+        optionid=$(this).val()
+        var question_answer = {"question":questionid,"option_chosen":optionid,"responder":session['user'],"csrf_token":"{{csrf_token()}}"}
+
+        $.ajax({
+            url:'/ninjasurvey/allquestions/{{suv.survey_id}}',
+            data2send:question_answer,
+            type:'post',
+            datatype:'text',
+            success:function(rsp){
+                alert(rsp)}
+
+        })
+    })
+})
+</script>
+{%endblock%}

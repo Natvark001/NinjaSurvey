@@ -1,0 +1,29 @@
+{%extends 'users/user_layout.html'%}
+{%block content%}
+<div class='row'>
+    <div class='col-md mt-3'>
+        {%for rsp in response%}
+           Answered by:<b>{%if rsp.rspuser.user_email ==session['user']%}You{%else%}{{rsp.rspuser.user_email}}{%endif%}</b>
+           <table class='table table-striped'>
+                <thead class='bg-dark text-light'>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for answer in rsp.rspdeets %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{answer.rspquest.question_text}}</td>
+                        <td>{{answer.rspopt.option_text}}</td>
+                    </tr>
+                </tbody>
+                {%endfor%}
+           </table>
+
+        {%endfor%}
+    </div>
+</div>
+{%endblock%}

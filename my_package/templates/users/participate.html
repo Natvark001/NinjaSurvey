@@ -1,0 +1,30 @@
+{%extends 'users/user_layout.html'%}
+{%block content%}
+{%if pat%}
+<table class='table table-striped'>
+<thead>
+    <tr>
+        <th>S/N</th>
+        <th>Survey Name</th>
+        <th>Category</th>
+        <th>Action</th>
+    </tr>
+</thead>
+<tbody>
+    {%for survey in pat%}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{survey.survey_name}}</td>
+        <td>{{survey.survcat.category_name}}</td>
+        <td><a href="{{url_for('answer',id=survey.survey_id)}}" class='btn btn-primary noround'>Take Survey</a></td>
+    </tr>
+    {%endfor%}
+</tbody>
+</table>
+{%else%}
+<div class='alert alert-info mt-3'>No available Survey</div>
+{%endif%}
+{%endblock%}
+{%block customjs%}
+
+{%endblock%}

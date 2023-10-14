@@ -1,0 +1,45 @@
+{%extends 'admin/adminlayout.html'%}
+{%block adminarea%}
+<div class='row'>
+    {% set m=get_flashed_messages(with_categories=True)%}
+    {% if m%}
+    {% for cat,msg in m %}
+    {%if cat =='success'%}
+    <div class='alert alert-success'>{{msg}}</div>
+    {%else%}
+    <div class='alert alert-danger'>{{msg}}</div>
+    {%endif%}
+    {%endfor%}
+    {%endif%}
+    <div class='col-md'>
+        {%if allquestions%}
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Question</th>
+                    <th>Template</th>
+                    <th>Date Created</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for question in allquestions%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{question.questbank.question_bank_type}}</td>
+                    <td>{{question.tbank.template_type}}</td>
+                    <td>{{question.questbank.date_added}}</td>
+                    <td><a href='{{url_for("delete",id=question.questbank.question_bank_id)}}'class='btn btn-danger' onclick="
+                        {return confirm('Do you want to delete this question')}">Delete</a></td>
+                {%endfor%}
+                </tr>
+            </tbody>
+        </table>
+        {%else%}
+        <div class='alert alert-info'>No Question yet</div>
+        {%endif%}
+    </div>
+
+</div>
+{%endblock%}

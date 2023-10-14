@@ -1,0 +1,39 @@
+{%extends 'admin/adminlayout.html'%}
+{%block adminarea%}
+<div class='row justify-content-center'>
+    <div class='col-md-8'>
+    {% set m=get_flashed_messages(with_categories=True)%}
+    {% if m%}
+    {% for cat,msg in m %}
+    {%if cat =='success'%}
+    <div class='alert alert-success'>{{msg}}</div>
+    {%else%}
+    <div class='alert alert-danger'>{{msg}}</div>
+    {%endif%}
+    {%endfor%}
+    {%endif%}
+        <h1>Add New Template Questions here</h1>
+        <form action='' method='post'>
+            <input type='hidden' name='csrf_token' value='{{csrf_token()}}'>
+            <div class='mb-3'>
+                <label>Question</label>
+                <textarea class='form-control' name='question' id='question'></textarea>
+            </div>
+            
+            <div class='mb-3'>
+                <label>Template for Question</label>
+                <select name='questiontemplate' id='questiontemplate' class='form-control'>
+                    <option>Select Question Template</option>
+                    {%for q in addquestion%}
+                    <option value='{{q.template_id}}'>{{q.template_type}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+
+            <div>
+                <button class='btn btn-info col-12'>Add Question</button>
+            </div>
+        </form>
+    </div>
+</div>
+{%endblock%}

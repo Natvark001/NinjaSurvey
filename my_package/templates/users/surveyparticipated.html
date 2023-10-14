@@ -1,0 +1,32 @@
+{%extends 'users/user_layout.html'%}
+{%block content%}
+{%if svpart%}
+<div class='row'>
+    <div class='col-md'>
+        <table class='table table-striped'>
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Survey Title</th>
+                    <th>Questions Answered</th>
+                    <th>Date/Time Answered</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for part in svpart%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{part.rspsurvey.survey_name}}</td>
+                    <td>{{part.rspdeets|count}}</td>
+                    <td>{{part.response_time}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{%else%}
+<div class='alert alert-info mt-3'>You have not taken any survey</div>
+{%endif%}
+{%endblock%}

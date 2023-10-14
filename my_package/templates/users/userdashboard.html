@@ -1,0 +1,48 @@
+{%extends 'users/user_layout.html'%}
+{%block content%}
+<div class='row'>
+<div class="col-md mt-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Create A Survey</h5>
+        <p class="card-text">Remember that surveys will help you reach out to more people </p>
+        <a href="{{url_for('create_survey')}}" class="btn btn-primary">Create</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md mt-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Participate in Survey</h5>
+        <p class="card-text">You can fill out open surveys created here</p>
+        <a href="{{url_for('participate')}}" class="btn btn-primary">Participate</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md mt-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Surveys you participated</h5>
+          <p class="card-text">All the surveys you filled out are available for you to see</p>
+          <a href="{{url_for('survey_participated')}}" class="btn btn-primary">Check</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md mt-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Surveys you Created</h5>
+          <p class="card-text">Don't forget to keep track of the surveys you created</p>
+          <a href="{{url_for('track')}}" class="btn btn-primary">Track</a>
+        </div>
+      </div>
+    </div>
+</div>
+{%endblock%}
+
+{%block customjs%}
+
+{%endblock%}

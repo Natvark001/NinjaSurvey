@@ -1,0 +1,56 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+/* div{
+    min-height:100px;
+    border:2px solid red;
+} */
+.learn{
+    background-color: #F2F2F2;
+}
+.nav-link{
+    color:black;
+}
+.nav-link:hover{
+    color:black;
+}
+.nav-login{
+    text-decoration: none;
+    color:red;
+    font-weight: bold;
+}
+#foot{
+    background-color: #07020d;
+}
+#conductform,#logincolor{
+    background-color:#e5fcf5;
+}
+.top{
+    /* position:sticky;
+    top:0px; */
+    background-color: white;
+}
+.template{
+    background-color:#e5fcf5 ;
+    min-height:300px;
+}
+.template2{
+    background-color: bisque;
+    min-height:300px;
+}
+a{
+    text-decoration:none;
+}
+#foot ul li{
+    list-style-type:none;
+}
+#content{
+    min-height: 400px;
+}
+#survname{
+    display:inline-block;
+}
+#cont{
+    min-height:400px;
+}
